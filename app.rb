@@ -65,16 +65,14 @@ end
 
 get('/user/:id/survey_questions_list') do
   @survey = Survey.find(params.fetch('id').to_i())
-  @questions = Question.find(@survey)
-  @question_id = Question.find(params.fetch("question_id").to_i())
-  @answered_question = Question.find(params.fetch('id').to_i)
   erb(:user_survey_questions_list)
 end
 
 post('/user/:id/survey_questions_list') do
-  @answer = params.fetch('answer')
+  answer = params.fetch('answer')
   @survey = Survey.find(params.fetch('id').to_i())
-  @answered_question = Question.find(params.fetch('id').to_i())
-  @answered_question.update({:answer => @answer})
+  question_id = params.fetch('question_id').to_i()
+  @answered_question = Question.find(question_id)
+  @answered_question.update({:answer => answer})
   erb(:user_survey_questions_list)
 end

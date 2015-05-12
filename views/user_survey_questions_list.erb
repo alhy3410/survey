@@ -7,11 +7,10 @@
     <li><%= q.question() %> </li>
 
      <form action='/user/<%=@survey.id()%>/survey_questions_list' method='post'>
-       <input id="question_id" name="question_id" type="hidden" value="<%=@questions.id%>">
+       <input id="question_id" name="question_id" type="hidden" value="<%= q.id %>">
        <label for='answer'> Write your Answer Here:</label>
        <input id="answer" name='answer' type='text'>
        <button type='submit'>Submit Answer </button>
-       <p><%= @answered_question.answer() %></p>
      </form>
 
     <% end %>
