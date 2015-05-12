@@ -1,19 +1,5 @@
-<h1> Welcome to our survey site! </h1>
+<h1> Welcome Survey Users </h1>
 
-
-<% if @surveys.any? %>
-  <h3>Here is a list of available surveys</h3>
-  <ul><% @surveys.each() do |survey| %>
-    <li><a href="/surveys/<%=survey.id()%>/list_questions"><%= survey.survey_name() %></a></li>
-    <% end %>
-  </ul>
-
-<% else %>
-  <h3>There are no available surveys</h3>
-<% end %>
-
-<form action='/' method='post'>
-  <label for="survey_name">Survey Name:</label>
-  <input id='survey_name' name='survey_name' type='text'>
-  <button type='submit'>Add Survey</button>
-</form>
+<h3> Click the link that applies to you </h3>
+<h2><a href='/admin'>Admin users who want to create or change surveys</a></h2>
+<h2><a href='/users/list_surveys'>People who are going to take surveys</a></h2>

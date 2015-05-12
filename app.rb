@@ -5,18 +5,23 @@ require("./lib/question")
 require("./lib/survey")
 also_reload("lib/**/*.rb")
 require("pg")
+require('pry')
 
 get('/') do
-  @surveys = Survey.all()
   erb(:index)
 end
 
-post('/') do
+get('/admin') do
+  @surveys = Survey.all()
+  erb(:adminindex)
+end
+
+post('/admin') do
   survey_name = params.fetch('survey_name')
   survey = Survey.new(:survey_name => survey_name)
   survey.save()
   @surveys = Survey.all()
-  erb(:index)
+  erb(:adminindex)
 end
 
 get('/surveys/:id/add_questions') do
@@ -50,5 +55,26 @@ delete("/surveys/:id/list_questions") do
   @survey = Survey.find(params.fetch("id").to_i())
   @survey.delete()
   @surveys = Survey.all
-  erb(:index)
+  erb(:adminindex)
+end
+
+get('/users/list_surveys') do
+  @surveys = Survey.all
+  erb(:user_survey_list)
+end
+
+get('/user/:id/survey_questions_list') do
+  @survey = Survey.find(params.fetch('id').to_i())
+  @questions = Question.find(@survey)
+  @question_id = Question.find(params.fetch("question_id").to_i())
+  @answered_question = Question.find(params.fetch('id').to_i)
+  erb(:user_survey_questions_list)
+end
+
+post('/user/:id/survey_questions_list') do
+  @answer = params.fetch('answer')
+  @survey = Survey.find(params.fetch('id').to_i())
+  @answered_question = Question.find(params.fetch('id').to_i())
+  @answered_question.update({:answer => @answer})
+  erb(:user_survey_questions_list)
 end
