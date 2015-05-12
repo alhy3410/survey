@@ -1,0 +1,10 @@
+<h1>Add a Question to <%= @survey.survey_name %></h1>
+
+<h3>Add a Question</h3>
+<form action='/surveys/<%=@survey.id()%>/list_questions' method="post">
+  <label for="survey_question">Survey Question to add:</label>
+  <input id="survey_question" name="survey_question" type="text">
+  <button type='submit'>Add Question </button>
+</form>
+
+<a href="/">Return Home</a>

@@ -1,0 +1,15 @@
+<h1>Welcome to <%= @survey.survey_name() %> </h1>
+
+<% if @survey.questions().any?() %>
+  <h3> Here is a list of all questions you should answer </h3>
+  <ul> <% @survey.questions.each() do |q| %>
+    <div>
+    <li><%= q.question() %> </li>
+    <% end %>
+  </ul>
+<% else %>
+  <h3>There are no questions </h3>
+<% end %>
+
+<a href="/">Return Home</a>
+<a href='/surveys/<%= @survey.id() %>/add_questions'>Add a Question to this survey</a>

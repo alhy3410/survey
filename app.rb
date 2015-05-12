@@ -19,7 +19,22 @@ post('/') do
   erb(:index)
 end
 
-get('/surveys/:id') do
+get('/surveys/:id/add_questions') do
   @survey = Survey.find(params.fetch('id').to_i())
+  erb(:add_questions)
+end
+
+get('/surveys/:id/list_questions') do
+  @survey = Survey.find(params.fetch('id').to_i())
+  @questions = Question.find(params.fetch('id').to_i())
+  erb(:survey_questions_list)
+end
+
+post('/surveys/:id/list_questions') do
+  question = params.fetch("survey_question")
+  survey_id = params.fetch("id").to_i()
+  @survey = Survey.find(survey_id)
+  @question = Question.new({:question => question, :survey_id => survey_id})
+  @question.save()
   erb(:survey_questions_list)
 end
